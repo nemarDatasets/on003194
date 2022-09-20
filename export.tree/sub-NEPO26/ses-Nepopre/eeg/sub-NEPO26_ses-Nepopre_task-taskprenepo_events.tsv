@@ -1,0 +1,14 @@
+onset	duration	trial_type	value	sample
+0.005	0	ojos cerrados	65	1
+193.73	0	ojos abiertos	66	38746
+213.08	0	ojos cerrados	65	42616
+229.695	0	ojos abiertos	66	45939
+247.245	0	ojos cerrados	65	49449
+261.95	0	ojos abiertos	66	52390
+277.41	0	ojos cerrados	65	55482
+293.18	0	ojos abiertos	66	58636
+306.86	0	ojos cerrados	65	61372
+362.355	0	hiperventilacion 2	68	72471
+472.855	0	hiperventilacion 3	69	94571
+482.065	0	HPVOJOS ABIERTOS	74	96413
+544.125	0	recuperacion	70	108825

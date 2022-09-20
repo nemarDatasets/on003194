@@ -1,0 +1,17 @@
+{
+  "TaskName": "task pre nepo",
+  "TaskDescription": "task",
+  "SamplingFrequency": 200,
+  "EEGChannelCount": 19,
+  "EOGChannelCount": 0,
+  "ECGChannelCount": 1,
+  "EMGChannelCount": 0,
+  "MiscChannelCount":  0,
+  "TriggerChannelCount":  0,
+  "EEGPlacementScheme": "10-10",
+  "EEGReference": "common",
+  "PowerLineFrequency": 60,
+  "SoftwareFilters": "n/a",
+  "RecordingDuration": 701.605,
+  "RecordingType": "continuous"
+}
