@@ -2,8 +2,8 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "Neuroepo multisession",
-  "description": "This dataset comprises resting-state EEG recordings from 25 Parkinson's disease patients enrolled in a double-blind randomized placebo-controlled trial (NCT04110678) evaluating the neuroprotective potential of Neuroepo, a low-sialic-acid formulation of erythropoietin. EEG data were acquired at baseline and six months post-treatment, with both qualitative clinical assessment and quantitative source-level analysis using VARETA and MNI atlas co-registration. The dataset supports investigation of EEG biomarkers for disease progression and treatment response in Parkinson's disease.",
-  "methods_description": "Resting-state EEG recordings were obtained from PD patients before and six months after administration of Neuroepo (n=15) or placebo (n=10). Qualitative EEG analysis was performed by two independent experts using a Likert-type scale. Quantitative EEG analysis employed source localization using VARETA software with Montreal Neurological Institute Atlas co-registration. Statistical comparisons between groups and timepoints were conducted using permutation tests and contrast methods with Bonferroni correction for multiple comparisons.",
+  "description": "This dataset comprises resting-state EEG recordings from 25 Parkinson's disease patients enrolled in a double-blind randomized placebo-controlled trial (NCT04110678) evaluating the neuroprotective potential of Neuroepo, a low-sialic-acid formulation of erythropoietin. EEG data were acquired before and six months after drug administration, with both qualitative and quantitative analyses performed to assess treatment effects on neural activity patterns and identify potential biomarkers of disease progression.",
+  "methods_description": "Resting-state EEG recordings were obtained from 25 PD patients (15 Neuroepo, 10 placebo) at baseline and 6-month follow-up. Qualitative EEG analysis was performed by two independent experts using a Likert-type scale. Quantitative EEG analysis employed source localization using VARETA software with co-registration to the Montreal Neurological Institute Atlas. Statistical comparisons between groups and timepoints were conducted using permutation tests and contrast methods with Bonferroni correction for multiple comparisons.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -28,7 +28,7 @@
       "term": "quantitative EEG"
     },
     {
-      "term": "biomarkers"
+      "term": "erythropoietin"
     },
     {
       "term": "neuroprotection"
