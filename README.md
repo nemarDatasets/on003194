@@ -5,31 +5,29 @@ In a double-blind randomized placebo (https://clinicaltrials.gov/ number NCT0411
 Here in this repository, we placed the raw EEG in BIDS format  (Pernet, C. R. et al. EEG-BIDS, an extension to the brain imaging data structure for electroencephalography. Sci. data 6, 103 (2019). For the use of VARETA the qEEG program you can use (Bosch-Bayard, J. et al. A Quantitative EEG Toolbox for the MNI Neuroinformatics Ecosystem: Normative SPM of EEG Source Spectra. Front. Neuroinform. 14, (2020).)
 The EEG dataset from the different stages of processing can be requested to the authors. 
 
-## NEMAR curation changes (2026-05-21)
+## NEMAR curation changes (2026-05-21, revised 2026-05-27)
 
-BIDS validator: 2 errors + 612 warnings → 0 errors + 495 warnings. Raw `.edf` binary payloads unchanged.
+The BIDS validator went from 2 errors + 612 warnings to 0 errors + 496 warnings. None of the raw `.edf` files were modified — every change is to a text sidecar.
 
-### `participants.tsv`
-- No cell values changed. The original file had a `sex` column with numeric `0`/`1` cells but no paired `participants.json` sidecar to document the coding, so the BIDS validator defaulted to the standard `sex` enum (`F`/`M`/`O`/`n/a`) and rejected every cell as the wrong type. The fix is in the new `participants.json` below.
+**Participant table (`participants.tsv`) and its new sidecar (`participants.json`)**
+- No participant data was changed. The `sex` column records each participant as a number (`0` or `1`), but there was no sidecar to explain those codes, so the validator read them against its built-in `F`/`M`/`O` list and rejected every cell. A new `participants.json` was added that declares the column with exactly the codes that appear (`0` and `1`) and notes that the dataset itself does not say which number means which sex — that key has to be looked up in the source publication. No mapping was invented.
 
-### `participants.json` (new)
-- Declares the `sex` column with explicit `Levels: {"0", "1"}` matching the actual cell values, plus a `Description` noting that the numeric coding key (which value corresponds to which sex) is not documented inside this dataset and must be consulted in the source publication. Why: this is the minimum-invasive override that makes the validator accept the cells as a valid coded column without inventing a `0=F` / `0=M` mapping that the dataset itself does not assert. Closes the `TSV_VALUE_INCORRECT_TYPE:sex` error.
+**Acquisition times (`sub-NEPO15` scan table)**
+- One scan table listed the same recording file twice, with two different times (`11:04:44` and `12:00:59`), even though only one recording file exists in that folder. The earlier (first) row was kept and the duplicate removed, since BIDS requires each file to be listed only once.
 
-### `sub-NEPO15/ses-Nepopre/sub-NEPO15_ses-Nepopre_scans.tsv`
-- Dropped the duplicate row. The file listed `eeg/sub-NEPO15_ses-Nepopre_task-taskprenepo_eeg.edf` twice with different `age_acq_time` values (`11:04:44` and `12:00:59`); the directory contains only one EDF file. Kept the first row (earlier time) and removed the second. Why: BIDS requires the `filename` column in `scans.tsv` to be unique. Closes the `TSV_INDEX_VALUE_NOT_UNIQUE` error.
+**Dataset description (`dataset_description.json`)**
+- Added `DatasetType: "raw"` so the dataset is validated as raw data rather than a derivative.
+- Updated `BIDSVersion` from `1.2.0` to `1.11.1` (the version the current validator checks against).
+- `GeneratedBy` was left absent, exactly as the source published it — nothing was added there.
 
-### `dataset_description.json`
-- Added `DatasetType: "raw"`. Why: BIDS-validator otherwise infers a derivative-rules cascade when `DatasetType` is missing alongside `GeneratedBy`, producing spurious warnings.
-- Added `GeneratedBy: [{Name: "nemar-cli", Version: "0.8.8", CodeURL: "https://github.com/nemar-org/nemar-cli"}]`. Why: records the NEMAR rehost step in the dataset's provenance chain.
-- Bumped `BIDSVersion` `1.2.0` → `1.8.0`. Why: the previous value was below the validator's recognized-version floor.
+**Event tables — new shared sidecar (`events.json`) at the dataset root**
+- None of the event tables had a sidecar describing their columns. A single root-level `events.json` now documents the columns they share (`onset` and `duration`, both in seconds, plus `trial_type`, `value`, and `sample`) and applies to every recording at once. The `trial_type` labels are kept as free text rather than a fixed list, because the recordings use a dozen different labels (mostly Spanish: `ojos cerrados`, `ojos abiertos`, `hiperventilacion 1`–`4`, `recuperacion`, `fotoestimulacion`, and others, including two variant spellings) and pinning them to a fixed list would reject the variants. The numeric `value` codes that appear are listed in that column's description.
 
-### `events.json` (new, inheriting root sidecar)
-- Created at the dataset root to document every column of every per-recording `_events.tsv` (none of which had a paired `_events.json` before). Columns: `onset` (`Units: "s"`), `duration` (`Units: "s"`), `trial_type`, `value`, `sample`. Why: closes 87 `TSV_ADDITIONAL_COLUMNS_UNDEFINED` warnings (29 each for `value`, `sample`, and `trial_type`) via BIDS inheritance, in one file.
-- `trial_type` declared as free-form (no `Levels` enum). Why: the 29 events.tsv files contain 12 distinct trial-type labels (mostly Spanish: `ojos cerrados`, `ojos abiertos`, `hiperventilacion 1`–`4`, `recuperacion`, `fotoestimulacion`; plus English `photic stimulation`, `discontinuity`; plus two variant spellings `HPVOJOS ABIERTOS` and `HEPERVENTILACION OJOS ABIERTOS`). Locking the column to an enum would reject the variant spellings; a free-form string column is BIDS-compliant and preserves the original labels untouched.
-- `value` declared as free-form numeric. The observed codes are listed in the column's `Description`.
+**Scan tables — new shared sidecar (`scans.json`) at the dataset root**
+- The scan tables use a column named `age_acq_time` that BIDS does not define, so a root-level `scans.json` describes it. The column name is non-standard (BIDS normally uses `acq_time` for full timestamps) and the cells only carry a time of day (`HH:MM:SS`), so it was documented in place rather than renamed, which would have changed its meaning.
 
-### `scans.json` (new, inheriting root sidecar)
-- Created at the dataset root to document the `age_acq_time` column used by every `sub-*_ses-*_scans.tsv`. Why: closes 29 `TSV_ADDITIONAL_COLUMNS_UNDEFINED:age_acq_time` warnings. The column name itself is non-canonical (BIDS prefers `acq_time` for full ISO 8601 timestamps) but the cells only carry `HH:MM:SS` time-of-day values, so renaming would be a semantic change beyond mechanical scope; the column is documented in place instead.
+**Recording sidecars (`_eeg.json`, all 29 recordings)**
+- The misc-channel-count field was spelled `MiscChannelCount`; BIDS uses the all-uppercase `MISCChannelCount`. It was renamed (the value, `0`, was already correct) so the validator recognizes it.
 
-### `sub-*/ses-*/eeg/sub-*_ses-*_task-*_eeg.json` (29 per-recording sidecars)
-- Renamed the key `MiscChannelCount` → `MISCChannelCount`. Why: the previous spelling is not BIDS-canonical (BIDS requires all-uppercase `MISC`), so the validator did not recognise the field and continued to warn that `MISCChannelCount` was missing. No value change — the field stays at `0`. Closes the 29 `SIDECAR_KEY_RECOMMENDED:MISCChannelCount` warnings.
+**Remaining warnings (496) — left on purpose**
+- These are all "recommended but missing" fields that need study, lab, or equipment details not in the dataset (for example: manufacturer, cap model, device serial number, instructions, head circumference, hardware filters, cognitive-atlas IDs). One of them is `GeneratedBy`: the source does not document what tool generated the data, so it was left absent rather than guessed. All were left blank rather than filled with invented values.
