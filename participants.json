@@ -1,0 +1,12 @@
+{
+  "participant_id": {
+    "Description": "Unique participant identifier"
+  },
+  "sex": {
+    "Description": "Numerically coded participant sex (0 / 1) as recorded in the source acquisition. The coding key (which numeric value corresponds to female vs male) is not documented inside this dataset; consult the source publication (OpenNeuro ds003194 / NCT04110678).",
+    "Levels": {
+      "0": "Numerically coded sex value 0",
+      "1": "Numerically coded sex value 1"
+    }
+  }
+}

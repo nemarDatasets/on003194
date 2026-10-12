@@ -1,0 +1,8 @@
+{
+  "filename": {
+    "Description": "Path of the scan file, relative to the session directory."
+  },
+  "age_acq_time": {
+    "Description": "Local clock time-of-day at which the scan was acquired (HH:MM:SS). This is the non-standard column name used by the original recording lab; per BIDS, the canonical column for full ISO 8601 acquisition timestamps is `acq_time`, but only the time-of-day portion is recorded here."
+  }
+}
