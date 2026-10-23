@@ -1,0 +1,19 @@
+{
+  "onset": {
+    "Description": "Onset of the event measured from the beginning of the recording.",
+    "Units": "s"
+  },
+  "duration": {
+    "Description": "Duration of the event.",
+    "Units": "s"
+  },
+  "trial_type": {
+    "Description": "Resting-state recording-phase label. Observed values across the 29 recordings include: 'ojos cerrados' (eyes closed), 'ojos abiertos' (eyes open), 'photic stimulation' / 'fotoestimulacion' (photic stimulation), 'hiperventilacion 1'-'hiperventilacion 4' (hyperventilation phases 1-4), 'recuperacion' (recovery), 'discontinuity' (recording discontinuity), 'HPVOJOS ABIERTOS' and 'HEPERVENTILACION OJOS ABIERTOS' (variant spellings of hyperventilation-with-eyes-open). Labels are mixed Spanish and English as recorded by the source lab and have not been normalised by this curation pass."
+  },
+  "value": {
+    "Description": "Numeric trigger code recorded with the event. Codes observed across the 29 recordings: 2, 5, 65, 66, 67, 68, 69, 70, 71, 74."
+  },
+  "sample": {
+    "Description": "Onset of the event measured in samples (relative to the start of the recording)."
+  }
+}
