@@ -2,8 +2,8 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "Neuroepo multisession",
-  "description": "Resting-state EEG recorded from 25 patients with Parkinson's disease enrolled in a double-blind, randomized, placebo-controlled trial of Neuroepo, an erythropoietin formulation with low sialic acid content. Participants received Neuroepo (n=15) or placebo (n=10), and EEG was recorded before and six months after administration. Raw data are provided in EEG-BIDS format to support assessment of qualitative and quantitative EEG (source-level) biomarkers of neuroprotection.",
-  "methods_description": "Resting-state EEG was recorded before and six months after drug administration. Two experts rated EEG abnormalities on a Likert-type scale, analyzed with a multivariate item response theory approach. Source-level quantitative EEG was computed with VARETA and co-registered to the MNI atlas. Statistics used permutation tests and surfstat contrasts with Bonferroni correction.",
+  "description": "Resting-state EEG recorded from 25 patients with Parkinson's disease in a double-blind, randomized, placebo-controlled trial of Neuroepo, an EPO formulation with low sialic acid content. Recordings were acquired before and six months after drug administration, in Neuroepo (n=15) and placebo (n=10) groups. The raw data are shared in EEG-BIDS format to support evaluation of EEG biomarkers of neuroprotection, including qualitative expert ratings and quantitative source-level analysis.",
+  "methods_description": "Resting-state EEG was recorded before and six months after administration of Neuroepo or placebo. Qualitative EEG abnormalities were rated by two experts on a Likert-type scale and analyzed with a multivariate item response theory approach. Quantitative EEG source analysis used VARETA with the MNI atlas. Group and pre/post comparisons used permutation tests and surfstat contrasts with Bonferroni correction.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -21,6 +21,9 @@
       "value_uri": "http://id.nlm.nih.gov/mesh/D010300"
     },
     {
+      "term": "Neuroepo"
+    },
+    {
       "term": "Erythropoietin",
       "subject_scheme": "MeSH",
       "value_uri": "http://id.nlm.nih.gov/mesh/D004921"
@@ -33,17 +36,9 @@
     },
     {
       "term": "neuroprotection"
-    },
-    {
-      "term": "randomized controlled trial"
     }
   ],
   "related_identifiers": [
-    {
-      "identifier": "10.18112/openneuro.ds003194.v1.0.3",
-      "identifier_type": "DOI",
-      "relation_type": "IsDerivedFrom"
-    },
     {
       "identifier": "https://github.com/nemarDatasets/on003194",
       "identifier_type": "URL",
@@ -53,6 +48,11 @@
       "identifier": "https://nemar.org/dataset/on003194",
       "identifier_type": "URL",
       "relation_type": "IsDescribedBy"
+    },
+    {
+      "identifier": "10.18112/openneuro.ds003194.v1.0.4",
+      "identifier_type": "DOI",
+      "relation_type": "IsDerivedFrom"
     }
   ],
   "funding_references": [
@@ -88,5 +88,5 @@
     ".tsv",
     ".yml"
   ],
-  "source_hash": "a4e3e8a27764f0acc115ca27dabf83de86a6e060f62c5437bc0024a9f68cc954"
+  "source_hash": "aa8c838df388baef87dbcf94e3cec974d5c5becc526e1e1820839099651e8b69"
 }
